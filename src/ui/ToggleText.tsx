@@ -10,7 +10,7 @@ const ToggleText = ({ text, maxLength = 50 }: IProps) => {
   const handleToggle = () => setExpanded((prev) => !prev);
 
   return (
-    <span>
+    <span className="text-gray-500 font-medium text-sm">
       {expanded ? text : `${text.slice(0, maxLength)}...`}
       <button
         onClick={handleToggle}

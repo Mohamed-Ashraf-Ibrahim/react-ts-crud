@@ -12,7 +12,7 @@ const ProductCard = ({ product }: IProps) => {
   return (
     <div className="max-w-sm md:max-w-lg mx-auto md:mx-0 border rounded-md p-2 flex flex-col">
       <Image imageURL={imageURL} alt={title} className="rounded-md my-4 " />
-      <h3>{title}</h3>
+      <h3 className="text-2xl font-bold">{title}</h3>
       <ToggleText text={description} />
 
       <div className="flex space-x-2 my-4 items-center">
