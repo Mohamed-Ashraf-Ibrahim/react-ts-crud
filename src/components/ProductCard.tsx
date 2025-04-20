@@ -1,5 +1,6 @@
 import { IProduct } from "../interfaces";
 import Button from "../ui/Button";
+import ToggleText from "../ui/ToggleText";
 import Image from "./Image";
 
 interface IProps {
@@ -7,7 +8,7 @@ interface IProps {
 }
 
 const ProductCard = ({ product }: IProps) => {
-  const { title, description, imageURL,price } = product;
+  const { title, description, imageURL, price } = product;
   return (
     <div className="border rounded-md p-2 flex flex-col m-3">
       <Image
@@ -16,7 +17,7 @@ const ProductCard = ({ product }: IProps) => {
         className="rounded-md my-4 "
       />
       <h3>{title}</h3>
-      <p>{description}</p>
+      <ToggleText text={description} />
 
       <div className="flex space-x-2 my-4 items-center">
         <span className="w-5 h-5 bg-indigo-500 rounded-full cursor-pointer" />
