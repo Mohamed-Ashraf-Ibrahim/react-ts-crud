@@ -1,16 +1,12 @@
-import ProductCard from "./components/ProductCard"
+import ProductCard from "./components/ProductCard";
+import { productList } from "./data";
 
 const App = () => {
-  return (
-    <div>
-      <ProductCard/>
-      <ProductCard/>
-      <ProductCard/>
-      <ProductCard/>
-      <ProductCard/>
-      <ProductCard/>
-    </div>
-  )
-}
+  // RENDER
+  const renderProductList = productList.map((product) => (
+    <ProductCard key={product.id} product={product} />
+  ));
+  return <div>{renderProductList}</div>;
+};
 
-export default App
+export default App;
