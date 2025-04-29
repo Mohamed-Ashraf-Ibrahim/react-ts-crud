@@ -98,13 +98,10 @@ const App = () => {
         <form onSubmit={onSubmitHandler}>
           {renderFormList}
           <div className="flex items-center space-x-3 my-4">
-            <Button
-              color="bg-indigo-700 hover:bg-indigo-800"
-              onClick={onCancel}
-            >
+            <Button color="bg-gray-300 hover:bg-gray-400" onClick={onCancel}>
               Cancel
             </Button>
-            <Button color="bg-gray-300 hover:bg-gray-400" type="submit">
+            <Button color="bg-indigo-700 hover:bg-indigo-800" type="submit">
               Submit
             </Button>
           </div>
