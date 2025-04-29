@@ -6,9 +6,16 @@ interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   width?: "w-full" | "w-fit";
 }
 
-const Button = ({ children, color, width = "w-full", ...rest }: IProps) => {
+const Button = ({
+  children,
+  color,
+  width = "w-full",
+  type = "button",
+  ...rest
+}: IProps) => {
   return (
     <button
+      type={type}
       className={`${color} ${width} p-3 rounded-md text-white cursor-pointer flex items-center justify-center`}
       {...rest}
     >
