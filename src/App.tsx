@@ -10,6 +10,7 @@ import Modal from "./ui/Modal";
 import { productValidation } from "./validation";
 import ErrorMessage from "./components/ErrorMessage";
 import CircleColor from "./components/CircleColor";
+import SelectMenu from "./ui/SelectMenu";
 
 const App = () => {
   const defaultProductObj = {
@@ -38,7 +39,7 @@ const App = () => {
 
   // HANDLER
   const openModal = () => setIsOpen(true);
-  
+
   const closeModal = () => setIsOpen(false);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -139,6 +140,7 @@ const App = () => {
               </span>
             ))}
           </div>
+          <SelectMenu />
           <div className="flex space-x-2 my-4 items-center">
             {renderProductColors}
           </div>
