@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { colors, formInputsList, productList } from "./data";
+import { categories, colors, formInputsList, productList } from "./data";
 import { IProduct } from "./interfaces";
 import { v4 as uuid } from "uuid";
 
@@ -36,6 +36,7 @@ const App = () => {
   const [product, setProduct] = useState<IProduct>(defaultProductObj);
   const [products, setProducts] = useState<IProduct[]>(productList);
   const [tempColors, setTempColors] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 
   // HANDLER
   const openModal = () => setIsOpen(true);
@@ -70,9 +71,15 @@ const App = () => {
     if (!hasNoErrors) return;
 
     setProducts((prev) => [
-      { ...product, id: uuid(), colors: tempColors },
+      {
+        ...product,
+        id: uuid(),
+        colors: tempColors,
+        category: selectedCategory,
+      },
       ...prev,
     ]);
+
     setProduct(defaultProductObj);
     setTempColors([]);
     closeModal();
@@ -129,7 +136,11 @@ const App = () => {
       <Modal isOpen={isOpen} closeModal={closeModal} title="ADD A NEW Product">
         <form onSubmit={onSubmitHandler}>
           {renderFormList}
-          <div className="flex items-center flex-wrap space-x-1 space-y-1">
+          <SelectMenu
+            selected={selectedCategory}
+            setSelected={setSelectedCategory}
+          />
+          <div className="flex items-center flex-wrap space-x-1 space-y-1 mt-3">
             {tempColors.map((color) => (
               <span
                 key={color}
@@ -140,7 +151,6 @@ const App = () => {
               </span>
             ))}
           </div>
-          <SelectMenu />
           <div className="flex space-x-2 my-4 items-center">
             {renderProductColors}
           </div>
