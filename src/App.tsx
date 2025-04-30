@@ -32,6 +32,7 @@ const App = () => {
     description: "",
     imageURL: "",
     price: "",
+    colors: "",
   });
   const [product, setProduct] = useState<IProduct>(defaultProductObj);
   const [products, setProducts] = useState<IProduct[]>(productList);
@@ -58,16 +59,18 @@ const App = () => {
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const { title, description, imageURL, price } = product;
+    const { title, description, imageURL, price} = product;
     const errors = productValidation({
       title,
       description,
       imageURL,
       price,
+      colors: tempColors,
     });
 
     const hasNoErrors = Object.values(errors).every((value) => value === "");
     setErrors(errors);
+    console.log(errors);
     if (!hasNoErrors) return;
 
     setProducts((prev) => [
@@ -121,6 +124,7 @@ const App = () => {
           return;
         }
         setTempColors((prev) => [...prev, color]);
+        setErrors((prev) => ({ ...prev, colors: "" }));
       }}
     />
   ));
@@ -154,6 +158,7 @@ const App = () => {
           <div className="flex space-x-2 my-4 items-center">
             {renderProductColors}
           </div>
+          <ErrorMessage msg={errors.colors} />
           <div className="flex items-center space-x-3 my-4">
             <Button color="bg-gray-300 hover:bg-gray-400" onClick={onCancel}>
               Cancel
