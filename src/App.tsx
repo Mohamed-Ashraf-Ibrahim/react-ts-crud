@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { colors, formInputsList, productList } from "./data";
 import { IProduct } from "./interfaces";
+import { v4 as uuid } from "uuid";
 
 import ProductCard from "./components/ProductCard";
 import Input from "./ui/Input";
@@ -22,6 +23,7 @@ const App = () => {
       imageURL: "",
     },
   };
+
   // STATES
   const [isOpen, setIsOpen] = useState(false);
   const [errors, setErrors] = useState({
@@ -31,10 +33,14 @@ const App = () => {
     price: "",
   });
   const [product, setProduct] = useState<IProduct>(defaultProductObj);
+  const [products, setProducts] = useState<IProduct[]>(productList);
   const [tempColors, setTempColors] = useState<string[]>([]);
+
   // HANDLER
   const openModal = () => setIsOpen(true);
+  
   const closeModal = () => setIsOpen(false);
+
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = e.target;
     setProduct({
@@ -57,10 +63,18 @@ const App = () => {
       imageURL,
       price,
     });
+
     const hasNoErrors = Object.values(errors).every((value) => value === "");
     setErrors(errors);
     if (!hasNoErrors) return;
-    console.log("send this product to our server");
+
+    setProducts((prev) => [
+      { ...product, id: uuid(), colors: tempColors },
+      ...prev,
+    ]);
+    setProduct(defaultProductObj);
+    setTempColors([]);
+    closeModal();
   };
 
   const onCancel = () => {
@@ -69,7 +83,7 @@ const App = () => {
   };
 
   // RENDER
-  const renderProductList = productList.map((product) => (
+  const renderProductList = products.map((product) => (
     <ProductCard key={product.id} product={product} />
   ));
 
