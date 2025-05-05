@@ -6,9 +6,16 @@ interface IProps {
   closeModal: () => void;
   title?: string;
   children: ReactNode;
+  description?: string;
 }
 
-const Modal = ({ isOpen, closeModal, title, children }: IProps) => {
+const Modal = ({
+  isOpen,
+  closeModal,
+  title,
+  children,
+  description,
+}: IProps) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={closeModal}>
@@ -42,8 +49,14 @@ const Modal = ({ isOpen, closeModal, title, children }: IProps) => {
                   {title}
                 </Dialog.Title>
               )}
+
+              {description && (
+                <Dialog.Description className="text-sm text-gray-500 mt-1">
+                  {description}
+                </Dialog.Description>
+              )}
+
               <div className="mt-4">{children}</div>
-              <div className="mt-4 flex justify-end"></div>
             </Dialog.Panel>
           </Transition.Child>
         </div>

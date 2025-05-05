@@ -6,17 +6,37 @@ import Image from "./Image";
 
 interface IProps {
   product: IProduct;
+  idx: number;
+  setProductToEdit: (product: IProduct) => void;
+  openModalEdit: () => void;
+  setProductsToEditIdx: (value: number) => void;
+  openConfirmModal: () => void;
 }
 
-const ProductCard = ({ product }: IProps) => {
+const ProductCard = ({
+  product,
+  setProductToEdit,
+  openModalEdit,
+  setProductsToEditIdx,
+  idx,
+  openConfirmModal,
+}: IProps) => {
   const { title, description, imageURL, price, colors, category } = product;
 
   const renderProductColors = colors.map((color) => (
-    <CircleColor
-      key={color}
-      color={color}
-    />
+    <CircleColor key={color} color={color} />
   ));
+
+  const onEdit = () => {
+    setProductToEdit(product);
+    openModalEdit();
+    setProductsToEditIdx(idx);
+  };
+
+  const onRemove = () => {
+    setProductToEdit(product);
+    openConfirmModal();
+  };
 
   return (
     <div className="max-w-sm md:max-w-lg mx-auto md:mx-0 border rounded-md p-2 flex flex-col">
@@ -38,10 +58,10 @@ const ProductCard = ({ product }: IProps) => {
       </div>
 
       <div className="flex justify-between space-x-2 my-2 ">
-        <Button color="bg-indigo-500" width="w-full">
+        <Button color="bg-indigo-500" width="w-full" onClick={onEdit}>
           Edit
         </Button>
-        <Button color="bg-red-600" width="w-full">
+        <Button color="bg-red-600" width="w-full" onClick={onRemove}>
           Remove
         </Button>
       </div>
